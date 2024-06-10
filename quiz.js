@@ -1,30 +1,69 @@
-const questions = [
-    { question: 'What is 2 + 2?', answers: ['3', '4', '5', '6'], correct: '4' },
-    { question: 'What is the capital of France?', answers: ['Berlin', 'Madrid', 'Paris', 'Rome'], correct: 'Paris' }
+const quizQuestions = [
+    {
+        question: "What is the capital of France?",
+        options: ["Berlin", "Madrid", "Paris", "Rome"],
+        answer: "Paris"
+    },
+    {
+        question: "Which planet is known as the Red Planet?",
+        options: ["Jupiter", "Mars", "Saturn", "Venus"],
+        answer: "Mars"
+    },
+    {
+        question: "What is the tallest mammal?",
+        options: ["Giraffe", "Elephant", "Hippopotamus", "Rhino"],
+        answer: "Giraffe"
+    },
+    {
+        question: "Who painted the Mona Lisa?",
+        options: ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Michelangelo"],
+        answer: "Leonardo da Vinci"
+    },
+    {
+        question: "What is the largest ocean on Earth?",
+        options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+        answer: "Pacific Ocean"
+    }
 ];
 
 let currentQuestion = 0;
 let score = 0;
 
-function nextQuestion() {
-    if (currentQuestion < questions.length) {
-        const q = questions[currentQuestion];
-        document.getElementById('quiz').innerHTML = `
-            <h2>${q.question}</h2>
-            ${q.answers.map(a => `<button onclick="checkAnswer('${a}')">${a}</button>`).join('')}
-        `;
-    } else {
-        document.getElementById('quiz').innerHTML = 'Quiz completed!';
-        document.getElementById('score').innerHTML = `Your score: ${score}`;
-    }
+const questionElement = document.getElementById("question");
+const optionsElement = document.getElementById("options");
+const nextButton = document.getElementById("nextButton");
+const scoreElement = document.getElementById("score");
+
+function displayQuestion() {
+    questionElement.innerText = quizQuestions[currentQuestion].question;
+    const options = quizQuestions[currentQuestion].options.map((option, index) =>
+        `<button onclick="checkAnswer('${option}')">${option}</button>`
+    );
+    optionsElement.innerHTML = options.join("");
 }
 
-function checkAnswer(answer) {
-    if (answer === questions[currentQuestion].correct) {
+function checkAnswer(selectedAnswer) {
+    if (selectedAnswer === quizQuestions[currentQuestion].answer) {
         score++;
     }
     currentQuestion++;
-    nextQuestion();
+    if (currentQuestion < quizQuestions.length) {
+        displayQuestion();
+    } else {
+        endQuiz();
+    }
 }
 
-nextQuestion();
+function endQuiz() {
+    questionElement.innerText = "Quiz completed!";
+    optionsElement.innerHTML = "";
+    scoreElement.innerText = `Your score: ${score} / ${quizQuestions.length}`;
+}
+
+nextButton.addEventListener("click", () => {
+    if (currentQuestion < quizQuestions.length) {
+        displayQuestion();
+    }
+});
+
+displayQuestion();
