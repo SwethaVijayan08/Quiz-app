@@ -20,6 +20,9 @@ body {
     transition: background 0.5s;
     background-size: cover;
     background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 button {
@@ -43,6 +46,7 @@ button:hover {
     border: none;
     cursor: pointer;
     width: 100%;
+    margin-top: 20px; 
 }
 
 #submitBtn:hover {
@@ -53,17 +57,27 @@ button:hover {
     margin: 5px 0; 
 }
 
-.submitBtn {
+.nextBtn {
     background-color: #28a745; 
     color: #fff;
     border: none;
     cursor: pointer;
     width: 100%;
-    font-size: 16px; 
+    font-size: 16px;
     padding: 15px; 
     margin-top: 20px; 
 }
 
-.submitBtn:hover {
+.nextBtn:hover {
     background-color: #218838;
+}
+
+.correct {
+    background-color: green !important;
+    color: white;
+}
+
+.incorrect {
+    background-color: red !important;
+    color: white;
 }
