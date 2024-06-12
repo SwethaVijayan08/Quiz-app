@@ -85,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     button.classList.add('incorrect');
                 }
                 document.querySelectorAll('.answerBtn').forEach(btn => btn.disabled = true);
+                checkSubmitButtonAvailability();
             };
             questionDiv.appendChild(button);
         });
@@ -92,7 +93,16 @@ document.addEventListener("DOMContentLoaded", () => {
         quizContainer.appendChild(questionDiv);
     }
 
+    function checkSubmitButtonAvailability() {
+        if (currentQuestionIndex >= 4) {
+            submitButton.style.display = 'block';
+        } else {
+            submitButton.style.display = 'none';
+        }
+    }
+
     showQuestion(currentQuestionIndex);
+    checkSubmitButtonAvailability();
 
     nextButton.addEventListener('click', () => {
         if (currentQuestionIndex < questions.length - 1) {
@@ -101,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             alert('You have reached the end of the quiz.');
         }
+        checkSubmitButtonAvailability();
     });
 
     submitButton.addEventListener('click', () => {
